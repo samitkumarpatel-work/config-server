@@ -4,7 +4,8 @@ spring:
     config:
       server:
         git:
-          uri: file:///path/to/the/repo/config-server/config-repo
+          uri: https://github.com/samitkumarpatel-work/config-repo.git
+        #uri: file:///path/to/the/repo/config-server/config-repo
   application:
     name: config-server
 
