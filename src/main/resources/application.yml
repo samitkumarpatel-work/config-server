@@ -1,0 +1,14 @@
+
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: file:///path/to/the/repo/config-server/config-repo
+  application:
+    name: config-server
+
+
+server:
+  port: 8888
+
