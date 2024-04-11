@@ -1,4 +1,14 @@
 # config-server
+
+```mermaid
+graph TD
+    A[config-server] 
+    A -->|consumer| B[config-client]
+    A -->|consumer| C[config-client]
+    A -->|consumer| D[config-client]
+
+
+```
 This is a config server. It is a spring boot application that provides configuration for other microservices services.
 Explore more about spring config server on the [Wiki](https://docs.spring.io/spring-cloud-config/docs/current/reference/html/) and [Wiki](https://cloud.spring.io/spring-cloud-config/multi/multi__spring_cloud_config_server.html) for more information.
 

@@ -20,7 +20,7 @@ public class ConfigServerApplication {
 	RouterFunction<ServerResponse> routerFunction() {
 		return RouterFunctions
 				.route()
-				.GET("/custom-config", serverRequest -> {
+				.GET("/spa", serverRequest -> {
 					return ServerResponse.ok().body("Hello from config server");
 				})
 				.build();
