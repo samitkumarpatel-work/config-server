@@ -24,8 +24,8 @@ Let's assume out **Git**  repository contain configuration file like this:
 .
 ├── application.yml
 ├── nginx.conf
-├── pop-ms.yml
-├── pop-spa.yml
+├── ms1.yml
+├── ms2.yml
 └── spa.json
 ```
 
@@ -37,61 +37,43 @@ mvn spring-boot:run
 ```
 Supported endpoint to explore the config-server are as follows:
 
-Format
+Available Endpoints
+```shell
+/{application}/{profile}[/{label}] 
+"application" = ${spring.application.name}
+"profile" = ${spring.profiles.active} (actually Environment.getActiveProfiles())
+"label" = "master"
 ```
-/{application}/{profile}[/{label}]
+`[/{label}]` cab ne
+```shell
 /{application}-{profile}.yml #http://localhost:8888/config-server/development/main/application.yml
 /{label}/{application}-{profile}.yml
 /{application}-{profile}.properties
 /{label}/{application}-{profile}.properties 
-
 ```
 
 Example
 ```http
-# Will bring the properties from application.yml from respective branch
-curl host:PORT/context/main
-curl host:PORT/context/custom
+# application.yml
+http://localhost:8888/config-server/default
 
-# property available in application.yml with profiile development
-curl host:PORT/context/development
+# application-dev.yml
+http://localhost:8888/config-server/dev
 
-# property available in application.yml with profiile development and git branch master
-curl host:PORT/context/development/master
-
-curl host:PORT/context/development,db/master
-
-# http://localhost:8888/config-server/default/main/spa.json 
-# http://localhost:8888/config-server/development/main/spa.json
-
-curl host:PORT/context-development.yml
-curl host:PORT/context-db.properties
-curl host:PORT/master/context-db.properties
-```
-
-
-Endpoint available in this application are as follows:
-
-```shell
-http://localhost:8888/config-client/default
+#config-client.yml
+http://localhost:8888/config-server/default/main/config-client.yml
 http://localhost:8888/config-client/default/main
-http://localhost:8888/config-client/default/custom
-http://localhost:8888/config-client/default/custom/application.yml
-http://localhost:8888/config-client/default/custom/nginx.conf
-http://localhost:8888/config-client/development/custom/nginx.conf
-http://localhost:8888/config-client/default/custom/spa.json
-http://localhost:8888/config-client/default/main/spa.json #default profile, main branch, spa.json file
-http://localhost:8888/config-client/development/main/spa.json #development profile, main branch, spa.json file
-http://localhost:8888/config-client/development/custom/spa.json #development profile, custom branch, spa.json file
-```
 
-Consume the JSON text with Javascript
+#config-client-dev.yml
+http://localhost:8888/config-server/dev/main/config-client.yml
+http://localhost:8888/config-client/dev/main
 
-```javascript
-fetch('http://localhost:8888/config-server/default/main/spa.json')
-  .then(response => response.text())
-  .then(data => {
-    console.log(data);
-    console.log(JSON.parse(data));
-  });
+#spa.json
+http://localhost:8888/config-server/defaultt/main/spa.json
+
+http://localhost:8888/spa/default/main
+http://localhost:8888/spa/default/main/spa.json
+
+http://localhost:8888/config-client/default/main/spa.json
+http://localhost:8888/config-client/development/main/spa.json
 ```
